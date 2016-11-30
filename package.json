@@ -1,0 +1,17 @@
+{
+  "name": "hackmd-offline",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "MrOrz",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^1.2.4",
+    "koa-proxy": "^0.6.0",
+    "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0",
+    "node-fetch": "^1.6.3"
+  }
+}
