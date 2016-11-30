@@ -22,7 +22,28 @@ app.use(function *(){
   console.log('exportId', exportId)
 
   const html = yield fetch(`https://hackmd.io/s/${exportId}`).then(resp => resp.text());
-  this.body = html;
+  const assetUrls = [];
+
+  const regexp = /="(\/build\/[^"]*?)"/g;
+  let match;
+  while(match = regexp.exec(html)) {
+    assetUrls.push(match[1]);
+  }
+
+  this.body = html
+    .replace(/"https:\/\/cdnjs\.cloudflare\.com([^"]*)"/g, (m, path) => {
+      const replacedPath = `/proxy${path}`
+      assetUrls.push(replacedPath);
+      return `"${replacedPath}"`;
+    }).replace('</html>', `
+        <script src="/upup.min.js"></script>
+        <script>UpUp.start(({
+          'content-url': ${JSON.stringify(exportId)},
+          assets: ${JSON.stringify(assetUrls)}
+        }))</script>
+      </html>
+    `)
+  html.searc
 });
 
 app.listen(process.env.PORT || 3000);
