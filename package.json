@@ -13,5 +13,8 @@
     "koa-router": "^5.4.0",
     "koa-static": "^2.0.0",
     "node-fetch": "^1.6.3"
+  },
+  "engines": {
+    "node": "6.2.1"
   }
 }
